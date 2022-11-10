@@ -1,15 +1,14 @@
 import {Announcement} from "../../app/models/announcement";
 import AnnouncementList from "./AnnouncementList";
 import {useEffect, useState} from "react";
+import agent from "../../app/api/agent";
 
 export default function Catalog() {
 
     const [announcements, setAnnouncements] = useState<Announcement[]>([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/Announcement')
-            .then(response => response.json())
-            .then(data => setAnnouncements(data))
+        agent.Catalog.list().then(announcements => setAnnouncements(announcements));
     }, [])
 
     return (

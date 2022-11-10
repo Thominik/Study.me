@@ -6,6 +6,8 @@ import {Route, Switch} from "react-router-dom";
 import HomePage from "../../features/home/HomePage";
 import AnnouncementDetails from "../../features/announcements/AnnouncementDetails";
 import ContactPage from "../../features/contact/ContactPage";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -26,6 +28,7 @@ function App() {
 
   return (
         <ThemeProvider theme={theme}>
+            <ToastContainer position='bottom-right' hideProgressBar />
             <CssBaseline />
             <Header darkMode={darkMode} handleThemeChange={handleThemeChange}/>
             <Container>

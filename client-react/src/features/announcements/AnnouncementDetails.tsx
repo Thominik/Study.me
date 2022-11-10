@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import axios from "axios";
 import {Announcement} from "../../app/models/announcement";
 import {
     Email,
@@ -20,6 +19,7 @@ import {
     PhoneAndroid,
     VideoChat
 } from "@mui/icons-material";
+import agent from "../../app/api/agent";
 
 export default function AnnouncementDetails() {
     const {id} = useParams<{id: string}>();
@@ -27,19 +27,19 @@ export default function AnnouncementDetails() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/announcement/${id}`)
-            .then(response => setAnnouncement(response.data))
-            .catch(error => console.log(error))
+        agent.Catalog.details(parseInt(id))
+            .then(response => setAnnouncement(response))
+            .catch(error => console.log(error.response))
             .finally(() => setLoading(false));
     }, [id])
 
     if (loading) return <h3>Ładowanie...</h3>
 
-    if (!announcement) return <h3>Nie znaleziono ogłoszenia.</h3>
+    if (!announcement) return <h3>Nie znaleziono ogłoszenia</h3>
 
     function checkOnline() {
         if (announcement?.onlineLesson === true) {
-            return 'online i stacjonarnie.'
+            return 'online i stacjonarnie'
         }else{
             return 'zajęcia stacjonarne'
         }
