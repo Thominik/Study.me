@@ -90,12 +90,6 @@ export default function Header({darkMode, handleThemeChange}: Props) {
                     />
                 </Box>
 
-
-
-
-
-
-
 <Box display='flex'>
     <img style={{maxHeight: '12%', maxWidth: '12%', display: 'flex'}}
          src='/images/logo2.png' alt='logo.png'
@@ -135,7 +129,6 @@ export default function Header({darkMode, handleThemeChange}: Props) {
         ))}
     </List>
 </Box>
-
 
             </Toolbar>
         </AppBar>

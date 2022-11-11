@@ -20,6 +20,8 @@ import {
     VideoChat
 } from "@mui/icons-material";
 import agent from "../../app/api/agent";
+import NotFound from "../../app/errors/NotFound";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 
 export default function AnnouncementDetails() {
     const {id} = useParams<{id: string}>();
@@ -33,9 +35,9 @@ export default function AnnouncementDetails() {
             .finally(() => setLoading(false));
     }, [id])
 
-    if (loading) return <h3>Ładowanie...</h3>
+    if (loading) return <LoadingComponent message='Przechodzę do ogłoszenia...' />
 
-    if (!announcement) return <h3>Nie znaleziono ogłoszenia</h3>
+    if (!announcement) return <NotFound />
 
     function checkOnline() {
         if (announcement?.onlineLesson === true) {

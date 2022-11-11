@@ -8,6 +8,8 @@ import AnnouncementDetails from "../../features/announcements/AnnouncementDetail
 import ContactPage from "../../features/contact/ContactPage";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import ServerError from "../errors/ServerError";
+import NotFound from "../errors/NotFound";
 
 
 function App() {
@@ -37,6 +39,8 @@ function App() {
                     <Route exact path='/catalog' component={Catalog} />
                     <Route path='/catalog/:id' component={AnnouncementDetails} />
                     <Route path='/contact' component={ContactPage} />
+                    <Route path='/server-error' component={ServerError} />
+                    <Route component={NotFound} />
                 </Switch>
             </Container>
         </ThemeProvider>
