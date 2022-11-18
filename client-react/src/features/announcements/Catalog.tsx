@@ -1,22 +1,19 @@
-import {Announcement} from "../../app/models/announcement";
 import AnnouncementList from "./AnnouncementList";
-import {useEffect, useState} from "react";
-import agent from "../../app/api/agent";
+import {useEffect} from "react";
 import LoadingComponent from "../../app/layout/LoadingComponent";
+import {useAppDispatch, useAppSelector} from "../../store/configureStore";
+import {announcementSelectors, fetchAnnouncementsAsync} from "./announcementSlice";
 
 export default function Catalog() {
-
-    const [announcements, setAnnouncements] = useState<Announcement[]>([]);
-    const [loading, setLoading] = useState(true);
+    const announcements = useAppSelector(announcementSelectors.selectAll);
+    const {announcementsLoaded, status} = useAppSelector(state => state.catalog);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        agent.Catalog.list()
-            .then(announcements => setAnnouncements(announcements))
-            .catch(error => console.log(error))
-            .finally(() => setLoading(false))
-    }, [])
+        if (!announcementsLoaded) dispatch(fetchAnnouncementsAsync());
+    }, [announcementsLoaded, dispatch])
 
-    if (loading) return <LoadingComponent message='Ładuję ogłoszenia...' />
+    if (status.includes('pending')) return <LoadingComponent message='Ładuję ogłoszenia...' />
 
     return (
         <>

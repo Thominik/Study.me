@@ -10,8 +10,7 @@ import {
     Typography
 } from "@mui/material";
 import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {Announcement} from "../../app/models/announcement";
+import {useEffect} from "react";
 import {
     Email,
     Laptop,
@@ -19,23 +18,22 @@ import {
     PhoneAndroid,
     VideoChat
 } from "@mui/icons-material";
-import agent from "../../app/api/agent";
 import NotFound from "../../app/errors/NotFound";
 import LoadingComponent from "../../app/layout/LoadingComponent";
+import {useAppDispatch, useAppSelector} from "../../store/configureStore";
+import {announcementSelectors, fetchAnnouncementAsync} from "./announcementSlice";
 
 export default function AnnouncementDetails() {
+    const dispatch = useAppDispatch();
     const {id} = useParams<{id: string}>();
-    const [announcement, setAnnouncement] = useState<Announcement | null>(null);
-    const [loading, setLoading] = useState(true);
+    const announcement = useAppSelector(state => announcementSelectors.selectById(state, id));
+    const {status: announcementStatus} = useAppSelector(state => state.catalog);
 
     useEffect(() => {
-        agent.Catalog.details(parseInt(id))
-            .then(response => setAnnouncement(response))
-            .catch(error => console.log(error.response))
-            .finally(() => setLoading(false));
-    }, [id])
+        if (!announcement) dispatch(fetchAnnouncementAsync(parseInt(id)));
+    }, [id, dispatch, announcement])
 
-    if (loading) return <LoadingComponent message='Przechodzę do ogłoszenia...' />
+    if (announcementStatus.includes('pending')) return <LoadingComponent message='Przechodzę do ogłoszenia...' />
 
     if (!announcement) return <NotFound />
 
