@@ -2,17 +2,20 @@ import AnnouncementList from "./AnnouncementList";
 import {useEffect} from "react";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import {useAppDispatch, useAppSelector} from "../../store/configureStore";
-import {announcementSelectors, fetchAnnouncementsAsync, setAnnouncementParams} from "./announcementSlice";
 import {
-    Box,
-    Grid, Pagination,
-    Paper,
-    Typography
+    announcementSelectors,
+    fetchAnnouncementsAsync,
+    setAnnouncementParams,
+    setPageNumber
+} from "./announcementSlice";
+import {
+    Grid, Paper
 } from "@mui/material";
 import AnnouncementSearch from "./AnnouncementSearch";
 import SelectGroup from "../../app/components/SelectGroup";
 import AnnouncementSubjectLessonSearch from "./AnnouncementSubjectLessonSearch";
 import AnnouncementCitySearch from "./AnnouncementCitySearch";
+import AppPagination from "../../app/components/AppPagination";
 
 const sortOptions = [
     {value: 'title', label: 'Alfabetycznie'},
@@ -22,14 +25,14 @@ const sortOptions = [
 
 export default function Catalog() {
     const announcements = useAppSelector(announcementSelectors.selectAll);
-    const {announcementsLoaded, status, announcementParams} = useAppSelector(state => state.catalog);
+    const {announcementsLoaded, announcementParams, metaData} = useAppSelector(state => state.catalog);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (!announcementsLoaded) dispatch(fetchAnnouncementsAsync());
     }, [announcementsLoaded, dispatch])
 
-    if (status.includes('pending')) return <LoadingComponent message='Ładuję ogłoszenia...' />
+    if (!sortOptions) return <LoadingComponent message='Ładuję ogłoszenia...' />
 
     return (
         <Grid>
@@ -53,17 +56,10 @@ export default function Catalog() {
             </Grid>
             <Grid item xs={3} />
             <Grid sx={{mb: 3}} item xs={9}>
-                <Box display='flex' justifyContent='space-between' alignItems='center'>
-                    <Typography>
-                        Wyświetlono 1-6 z 20 ogłoszeń
-                    </Typography>
-                    <Pagination
-                        color='primary'
-                        size='large'
-                        count={10}
-                        page={2}
-                    />
-                </Box>
+                {metaData &&
+                <AppPagination
+                    metaData={metaData}
+                    onPageChange={(page: number) => dispatch(setPageNumber({pageNumber: page}))} />}
             </Grid>
         </Grid>
     )

@@ -52,7 +52,7 @@ export const fetchAnnouncementAsync = createAsyncThunk<Announcement, number>(
 function initParams() {
     return {
         pageNumber: 1,
-        pageSize: 6,
+        pageSize: 4,
         orderBy: 'title'
     }
 }
@@ -68,7 +68,11 @@ export const catalogSlice = createSlice({
     reducers: {
         setAnnouncementParams: (state, action) => {
             state.announcementsLoaded = false;
-            state.announcementParams = {...state.announcementParams, ...action.payload};
+            state.announcementParams = {...state.announcementParams, ...action.payload, pageNumber: 1};
+        },
+        setPageNumber: (state, action) => {
+          state.announcementsLoaded = false;
+          state.announcementParams = {...state.announcementParams, ...action.payload};
         },
         setMetaData: (state, action) => {
             state.metaData = action.payload;
@@ -106,4 +110,4 @@ export const catalogSlice = createSlice({
 
 export const announcementSelectors = announcementAdapter.getSelectors((state: RootState) => state.catalog);
 
-export const {setAnnouncementParams, resetAnnouncementParams, setMetaData} = catalogSlice.actions;
+export const {setAnnouncementParams, resetAnnouncementParams, setMetaData, setPageNumber} = catalogSlice.actions;
