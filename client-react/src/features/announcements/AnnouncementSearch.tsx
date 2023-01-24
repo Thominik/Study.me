@@ -2,6 +2,8 @@ import {debounce, TextField} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../store/configureStore";
 import {setAnnouncementParams} from "./announcementSlice";
 import {useState} from "react";
+import {Simulate} from "react-dom/test-utils";
+import click = Simulate.click;
 
 export default function AnnouncementSearch() {
     const {announcementParams} = useAppSelector(state => state.catalog);
@@ -10,7 +12,7 @@ export default function AnnouncementSearch() {
 
     const debouncedSearch = debounce((event: any) => {
         dispatch(setAnnouncementParams({searchTerm: event.target.value}))
-    }, 3000)
+    })
 
     return (
         <TextField

@@ -10,7 +10,7 @@ export default function AnnouncementCitySearch() {
 
     const debouncedSearch = debounce((event: any) => {
         dispatch(setAnnouncementParams({cityTerm: event.target.value}))
-    }, 3000)
+    })
 
     return (
         <TextField
