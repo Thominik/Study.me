@@ -7,7 +7,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {Link, useHistory} from "react-router-dom";
+import {Link, NavLink, useHistory} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import {LoadingButton} from '@mui/lab'
 import agent from "../../app/api/agent";
@@ -37,10 +37,10 @@ export default function Register() {
     }
 
     return (
-        <ThemeProvider theme={theme}>
+
             <Container component={Paper} maxWidth="sm"
                        sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', p: 4}}>
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
@@ -103,15 +103,20 @@ export default function Register() {
                     >
                         Zarejestruj się
                     </LoadingButton>
-                    <Grid container>
+                    <Grid container justifyContent='center'>
                         <Grid item>
-                            <Link to='/login'>
-                                {"Masz już konto? Przejdź tu."}
-                            </Link>
+                            <LoadingButton loading={isSubmitting}
+                                           type="submit"
+                                           fullWidth
+                                           variant="text"
+                                           sx={{ mt: 1}}
+                                           exact component={NavLink} to='/login'
+                            >
+                                Mam już konto
+                            </LoadingButton>
                         </Grid>
                     </Grid>
                 </Box>
             </Container>
-        </ThemeProvider>
     );
 }

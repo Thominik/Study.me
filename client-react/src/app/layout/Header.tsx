@@ -1,7 +1,19 @@
-import {AppBar, Box, FormControlLabel, Grid, List, ListItem, styled, Switch, Toolbar} from "@mui/material";
+import {
+    AppBar,
+    Box,
+    FormControlLabel,
+    Grid,
+    List,
+    ListItem,
+    styled,
+    Switch,
+    Toolbar,
+    useMediaQuery, useTheme
+} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import {useAppSelector} from "../../store/configureStore";
 import SignedInMenu from "./SignedInMenu";
+import DrawerHeader from "./DrawerHeader";
 
 interface Props {
     darkMode: boolean;
@@ -84,18 +96,36 @@ const navStyles = {
 
 export default function Header({darkMode, handleThemeChange}: Props) {
     const {user} = useAppSelector(state => state.account);
+    const theme= useTheme();
+    const isMatch = useMediaQuery(theme.breakpoints.down('lg'));
     return (
-        <AppBar position='static' sx={{mb: 4, justifyContent: 'center'}}>
+        <AppBar position='sticky' sx={{mb: 4, justifyContent: 'center'}}>
             <Toolbar>
+                {isMatch ? (
+                    <>
+                    <Grid container sx={{justifyContent: 'space-between', alignItems: 'center'}}>
+                        <Grid item xs={'auto'} lg={3} justifyContent='start' display='flex' alignItems='center'>
+                            <Box display='flex' justifyContent='start'>
+                                <FormControlLabel
+                                    control={<MaterialUISwitch sx={{m: 1}} checked={darkMode}
+                                                               onChange={handleThemeChange}/>} label=""/>
+                            </Box>
+                            <Box display='flex' justifyContent='end' exact component={NavLink} to='/'>
+                                <img style={{width: 125, height: 63, alignItems: 'center'}} src='/images/logo2.png' alt='logo.png'/>
+                            </Box>
+                        </Grid>
+                    </Grid>
+                   <DrawerHeader />
+                </> ) : (
                 <Grid container sx={{justifyContent: 'space-between', alignItems: 'center'}}>
-                    <Grid item xs={'auto'} lg={3} justifyContent='center' display='flex'>
-                        <Box display='flex' justifyContent='center'>
+                    <Grid item xs={'auto'} lg={3} justifyContent='start' display='flex' alignItems='center'>
+                        <Box display='flex' justifyContent='start'>
                             <FormControlLabel
                                 control={<MaterialUISwitch sx={{m: 1}} checked={darkMode}
                                                            onChange={handleThemeChange}/>} label=""/>
                         </Box>
-                        <Box display='flex'>
-                            <img style={{maxWidth: '45%', display: 'flex'}} src='/images/logo2.png' alt='logo.png'/>
+                        <Box display='flex' exact component={NavLink} to='/'>
+                            <img style={{width: 125, height: 63, display: 'flex', alignItems: 'center'}} src='/images/logo2.png' alt='logo.png'/>
                         </Box>
                     </Grid>
                     <Grid item xs={'auto'} lg={6} alignItems='center'>
@@ -120,7 +150,7 @@ export default function Header({darkMode, handleThemeChange}: Props) {
                             </Box>
                         )}
                     </Grid>
-                </Grid>
+                </Grid>)}
             </Toolbar>
         </AppBar>
     )
