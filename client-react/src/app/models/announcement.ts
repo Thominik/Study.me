@@ -12,3 +12,12 @@ export interface Announcement {
     firstName: string;
     lastName: string;
 }
+
+export interface AnnouncementParams {
+    orderBy: string;
+    searchTerm?: string;
+    cityTerm?: string;
+    subjectLessonTerm?: string;
+    pageNumber: number;
+    pageSize: number;
+}

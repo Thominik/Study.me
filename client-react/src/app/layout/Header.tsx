@@ -1,12 +1,26 @@
-import {AppBar, Box, FormControlLabel, List, ListItem, styled, Switch, Toolbar} from "@mui/material";
+import {
+    AppBar,
+    Box,
+    FormControlLabel,
+    Grid,
+    List,
+    ListItem,
+    styled,
+    Switch,
+    Toolbar,
+    useMediaQuery, useTheme
+} from "@mui/material";
 import {NavLink} from "react-router-dom";
+import {useAppSelector} from "../../store/configureStore";
+import SignedInMenu from "./SignedInMenu";
+import DrawerHeader from "./DrawerHeader";
 
 interface Props {
     darkMode: boolean;
     handleThemeChange: () => void;
 }
 
-const MaterialUISwitch = styled(Switch)(({ theme }) => ({
+const MaterialUISwitch = styled(Switch)(({theme}) => ({
     width: 62,
     height: 34,
     padding: 7,
@@ -79,57 +93,64 @@ const navStyles = {
     }
 }
 
+
 export default function Header({darkMode, handleThemeChange}: Props) {
+    const {user} = useAppSelector(state => state.account);
+    const theme= useTheme();
+    const isMatch = useMediaQuery(theme.breakpoints.down('lg'));
     return (
-        <AppBar position='static' sx={{mb: 4}}>
-            <Toolbar sx={{display: 'flex'}}>
-                <Box display='flex'>
-                    <FormControlLabel
-                        control={<MaterialUISwitch sx={{ m: 1 }} checked={darkMode} onChange={handleThemeChange} />}
-                        label=""
-                    />
-                </Box>
-
-<Box display='flex'>
-    <img style={{maxHeight: '12%', maxWidth: '12%', display: 'flex'}}
-         src='/images/logo2.png' alt='logo.png'
-    />
-    <List sx={{display: 'flex',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis'}}>
-        {midLinks.map(({title, path}) => (
-            <ListItem
-                exact
-                component={NavLink}
-                to={path}
-                key={path}
-                sx={navStyles}
-            >
-                {title}
-            </ListItem>
-        ))}
-    </List>
-</Box>
-
-<Box display='flex' alignItems='center'>
-    <List sx={{display: 'flex',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis'}}>
-        {rightLinks.map(({title, path}) => (
-            <ListItem
-                component={NavLink}
-                to={path}
-                key={path}
-                sx={navStyles}
-            >
-                {title}
-            </ListItem>
-        ))}
-    </List>
-</Box>
-
+        <AppBar position='sticky' sx={{mb: 4, justifyContent: 'center'}}>
+            <Toolbar>
+                {isMatch ? (
+                    <>
+                    <Grid container sx={{justifyContent: 'space-between', alignItems: 'center'}}>
+                        <Grid item xs={'auto'} lg={3} justifyContent='start' display='flex' alignItems='center'>
+                            <Box display='flex' justifyContent='start'>
+                                <FormControlLabel
+                                    control={<MaterialUISwitch sx={{m: 1}} checked={darkMode}
+                                                               onChange={handleThemeChange}/>} label=""/>
+                            </Box>
+                            <Box display='flex' justifyContent='end' exact component={NavLink} to='/'>
+                                <img style={{width: 125, height: 63, alignItems: 'center'}} src='/images/logo2.png' alt='logo.png'/>
+                            </Box>
+                        </Grid>
+                    </Grid>
+                   <DrawerHeader />
+                </> ) : (
+                <Grid container sx={{justifyContent: 'space-between', alignItems: 'center'}}>
+                    <Grid item xs={'auto'} lg={3} justifyContent='start' display='flex' alignItems='center'>
+                        <Box display='flex' justifyContent='start'>
+                            <FormControlLabel
+                                control={<MaterialUISwitch sx={{m: 1}} checked={darkMode}
+                                                           onChange={handleThemeChange}/>} label=""/>
+                        </Box>
+                        <Box display='flex' exact component={NavLink} to='/'>
+                            <img style={{width: 125, height: 63, display: 'flex', alignItems: 'center'}} src='/images/logo2.png' alt='logo.png'/>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={'auto'} lg={6} alignItems='center'>
+                        <Box display='flex'>
+                            {midLinks.map(({title, path}) => (
+                                <ListItem exact component={NavLink} to={path} key={path}
+                                          sx={{textOverflow: 'ellipsis', whiteSpace: 'nowrap', ...navStyles}}>
+                                    {title}
+                                </ListItem>
+                            ))}
+                        </Box>
+                    </Grid>
+                    <Grid item xs={'auto'} lg={3} alignItems='center' justifyContent='end' display='flex'>
+                        {user ? (<SignedInMenu/>) : (
+                            <Box display='flex' alignItems='end' justifyContent='center'>
+                                {rightLinks.map(({title, path}) => (
+                                    <ListItem component={NavLink} to={path} key={path}
+                                              sx={{textOverflow: 'ellipsis', whiteSpace: 'nowrap', ...navStyles}}>
+                                        {title}
+                                    </ListItem>
+                                ))}
+                            </Box>
+                        )}
+                    </Grid>
+                </Grid>)}
             </Toolbar>
         </AppBar>
     )

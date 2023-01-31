@@ -1,53 +1,55 @@
-import {
-    Alert, AlertTitle,
-    Button,
-    ButtonGroup,
-    Container, List, ListItem, ListItemText,
-    Typography
-} from "@mui/material";
-import agent from "../../app/api/agent";
-import {useState} from "react";
+import {Box, Chip, Container, Divider, Grid, Icon, IconButton, Typography} from "@mui/material";
+import {Email, Facebook, MarkAsUnreadTwoTone, PhoneIphone, Twitter} from "@mui/icons-material";
 
 export default function ContactPage() {
-    const [validationErrors, setValidationErrors] = useState<string[]>([]);
-
-    function getValidationError() {
-        agent.TestErrors.getValidationError()
-            .then(() => console.log('should not see this'))
-            .catch(error => setValidationErrors(error));
-    }
     return (
         <Container>
-            <Typography gutterBottom variant='h2'>Errors for testing purposes</Typography>
-            <ButtonGroup fullWidth>
-                <Button variant='contained'
-                        onClick={() => agent.TestErrors.get400Error().catch(error => console.log(error))}>Test 400 Error
-                </Button>
-                <Button variant='contained'
-                        onClick={() => agent.TestErrors.get401Error().catch(error => console.log(error))}>Test 401 Error
-                </Button>
-                <Button variant='contained'
-                        onClick={() => agent.TestErrors.get404Error().catch(error => console.log(error))}>Test 404 Error
-                </Button>
-                <Button variant='contained'
-                        onClick={() => agent.TestErrors.get500Error().catch(error => console.log(error))}>Test 500 Error
-                </Button>
-                <Button variant='contained'
-                        onClick={getValidationError}>Test Validation Error
-                </Button>
-            </ButtonGroup>
-            {validationErrors.length > 0 &&
-                <Alert severity='error'>
-                    <AlertTitle>ValidationErrors</AlertTitle>
-                    <List>
-                        {validationErrors.map(error => (
-                            <ListItem key={error}>
-                                <ListItemText>{error}</ListItemText>
-                            </ListItem>
-                            ))}
-                    </List>
-                </Alert>
-            }
+            <Grid
+                container spacing={2}
+                sx={{mb: 10}}
+                justifyContent="center"
+                display='flex'
+                xs={12}
+            >
+                <Grid item xs={12} sm={12} justifyContent='center' alignItems='center'>
+                    <Divider sx={{mt: 4, mb: 4}}></Divider>
+                    <Typography variant='h4' justifyContent='center' alignItems='center' display='flex'>Pomoc techniczna</Typography>
+                    <Typography variant='h5' justifyContent='center' alignItems='center' display='flex'>Study.me</Typography>
+                    <Divider sx={{mt: 4}}></Divider>
+                </Grid>
+                <Grid item xs={12} sm={12} justifyContent='center' alignItems='center'>
+                    <Box display='flex' justifyContent='center' sx={{mt: 4, mb: 4}}>
+                        <img style={{maxHeight: '40%', maxWidth: '40%', display: 'flex'}}
+                             src='/images/online-lesson.png' alt='support.png'
+                        />
+                    </Box>
+                </Grid>
+                <Grid item xs={12} sm={12} justifyContent='center' alignItems='center'>
+                    <Divider sx={{ mb: 10}}/>
+                </Grid>
+                <Grid container item xs={12} sm={6} direction='column' justifyContent='center' alignItems="center"
+                      sx={{mb: 5}}>
+                    <IconButton><MarkAsUnreadTwoTone
+                        style={{width: '90px', height: '90px'}}></MarkAsUnreadTwoTone></IconButton>
+                    <Typography variant='h5'>support@studyme.com</Typography>
+                </Grid>
+                <Grid container item xs={12} sm={6} direction='column' justifyContent='center' alignItems="center"
+                      sx={{mb: 5}}>
+                    <IconButton><Facebook style={{width: '90px', height: '90px'}}></Facebook></IconButton>
+                    <Typography variant='h5'>support@studyme.com</Typography>
+                </Grid>
+                <Grid container item xs={12} sm={6} direction='column' justifyContent='center' alignItems="center"
+                      sx={{mb: 5}}>
+                    <IconButton><Twitter style={{width: '90px', height: '90px'}}></Twitter></IconButton>
+                    <Typography variant='h5'>support@studyme.com</Typography>
+                </Grid>
+                <Grid container item xs={12} sm={6} direction='column' justifyContent='center' alignItems="center"
+                      sx={{mb: 5}}>
+                    <IconButton><PhoneIphone style={{width: '90px', height: '90px'}}></PhoneIphone></IconButton>
+                    <Typography variant='h5'>support@studyme.com</Typography>
+                </Grid>
+            </Grid>
+            <Divider sx={{mb: 12}}/>
         </Container>
     )
 }
