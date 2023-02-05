@@ -82,8 +82,14 @@ export const catalogSlice = createSlice({
         },
         setAnnouncement: (state, action) => {
             announcementAdapter.upsertOne(state, action.payload);
+            state.announcementsLoaded = false;
+        },
+        removeAnnouncement: (state, action) => {
+            announcementAdapter.removeOne(state, action.payload);
+            state.announcementsLoaded = false;
         }
-    },
+    }
+    ,
     extraReducers: (builder => {
         builder.addCase(fetchAnnouncementsAsync.pending, (state) => {
             state.status = 'pendingFetchAnnouncements';
@@ -113,4 +119,4 @@ export const catalogSlice = createSlice({
 
 export const announcementSelectors = announcementAdapter.getSelectors((state: RootState) => state.catalog);
 
-export const {setAnnouncementParams, resetAnnouncementParams, setMetaData, setPageNumber, setAnnouncement} = catalogSlice.actions;
+export const {setAnnouncementParams, resetAnnouncementParams, setMetaData, setPageNumber, setAnnouncement, removeAnnouncement} = catalogSlice.actions;

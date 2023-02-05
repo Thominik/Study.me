@@ -15,20 +15,33 @@ import { Edit, Delete } from "@mui/icons-material";
 import useAnnouncements from "../../app/hooks/useAnnouncements";
 import AppPagination from "../../app/components/AppPagination";
 import {useAppDispatch} from "../../store/configureStore";
-import {setPageNumber} from "../announcements/announcementSlice";
+import {removeAnnouncement, setPageNumber} from "../announcements/announcementSlice";
 import {useState} from "react";
 import AnnouncementForm from "../announcements/AnnouncementForm";
 import {Announcement} from "../../app/models/announcement";
+import agent from "../../app/api/agent";
+import {LoadingButton} from "@mui/lab";
 
 export default function UserAnnouncements() {
     const {announcements, metaData} = useAnnouncements();
     const dispatch = useAppDispatch();
     const [editMode, setEditMode] = useState(false);
     const [selectedAnnouncement, setSelectedAnnouncement] = useState<Announcement | undefined>(undefined);
+    const [loading, setLoading] = useState(false);
+    const [target, setTarget] = useState(0);
 
     function handleSelectAnnouncement(announcement: Announcement) {
         setSelectedAnnouncement(announcement);
         setEditMode(true);
+    }
+
+    function handleDeleteAnnouncement(id: number) {
+        setLoading(true);
+        setTarget(id);
+        agent.Member.deleteAnnouncement(id)
+            .then(() => dispatch(removeAnnouncement(id)))
+            .catch(error => console.log(error))
+            .finally(() => setLoading(false));
     }
 
     function cancelEdit() {
@@ -66,7 +79,11 @@ export default function UserAnnouncements() {
                                 </TableCell>
                                 <TableCell align="right">
                                     <Button onClick={() => handleSelectAnnouncement(announcement)} startIcon={<Edit />} />
-                                    <Button startIcon={<Delete />} color='error' />
+                                    <LoadingButton
+                                        loading={loading && target === announcement.id} startIcon={<Delete />}
+                                        color='error'
+                                        onClick={() => handleDeleteAnnouncement(announcement.id)}
+                                    />
                                 </TableCell>
                             </TableRow>
                         ))}
