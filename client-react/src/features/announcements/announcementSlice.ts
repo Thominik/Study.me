@@ -79,6 +79,9 @@ export const catalogSlice = createSlice({
         },
         resetAnnouncementParams: (state) => {
             state.announcementParams = initParams();
+        },
+        setAnnouncement: (state, action) => {
+            announcementAdapter.upsertOne(state, action.payload);
         }
     },
     extraReducers: (builder => {
@@ -110,4 +113,4 @@ export const catalogSlice = createSlice({
 
 export const announcementSelectors = announcementAdapter.getSelectors((state: RootState) => state.catalog);
 
-export const {setAnnouncementParams, resetAnnouncementParams, setMetaData, setPageNumber} = catalogSlice.actions;
+export const {setAnnouncementParams, resetAnnouncementParams, setMetaData, setPageNumber, setAnnouncement} = catalogSlice.actions;

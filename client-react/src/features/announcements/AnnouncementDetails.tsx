@@ -22,12 +22,18 @@ import NotFound from "../../app/errors/NotFound";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import {useAppDispatch, useAppSelector} from "../../store/configureStore";
 import {announcementSelectors, fetchAnnouncementAsync} from "./announcementSlice";
+import {User} from "../../app/models/user";
 
-export default function AnnouncementDetails() {
+interface Props {
+    user: User;
+}
+
+export default function AnnouncementDetails({user}: Props) {
     const dispatch = useAppDispatch();
     const {id} = useParams<{id: string}>();
     const announcement = useAppSelector(state => announcementSelectors.selectById(state, id));
     const {status: announcementStatus} = useAppSelector(state => state.catalog);
+
 
     useEffect(() => {
         if (!announcement) dispatch(fetchAnnouncementAsync(parseInt(id)));
@@ -36,14 +42,6 @@ export default function AnnouncementDetails() {
     if (announcementStatus.includes('pending')) return <LoadingComponent message='Przechodzę do ogłoszenia...' />
 
     if (!announcement) return <NotFound />
-
-    function checkOnline() {
-        if (announcement?.onlineLesson === true) {
-            return 'online i stacjonarnie'
-        }else{
-            return 'zajęcia stacjonarne'
-        }
-    }
 
 
     return (
@@ -62,7 +60,7 @@ export default function AnnouncementDetails() {
                             </TableRow>
                             <TableRow>
                                 <TableCell style={{borderBottom:"none"}} align='right'><Icon><Laptop color='primary'></Laptop></Icon></TableCell>
-                                <TableCell style={{borderBottom:"none"}} align='left'>{checkOnline()}</TableCell>
+                                <TableCell style={{borderBottom:"none"}} align='left'>{announcement.onlineLesson}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell style={{borderBottom:"none"}} align='right'><Icon><PhoneAndroid color='primary'></PhoneAndroid></Icon></TableCell>
@@ -74,7 +72,7 @@ export default function AnnouncementDetails() {
                             </TableRow>
                             <TableRow>
                                 <TableCell style={{borderBottom:"none"}} align='right'><Icon><Email color='primary'></Email></Icon></TableCell>
-                                <TableCell style={{borderBottom:"none"}} align='left'>tu będzie prop email</TableCell>
+                                <TableCell style={{borderBottom:"none"}} align='left'>{user?.email}</TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>

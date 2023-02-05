@@ -1,10 +1,7 @@
 import AnnouncementList from "./AnnouncementList";
-import {useEffect} from "react";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import {useAppDispatch, useAppSelector} from "../../store/configureStore";
 import {
-    announcementSelectors,
-    fetchAnnouncementsAsync,
     setAnnouncementParams,
     setPageNumber
 } from "./announcementSlice";
@@ -16,6 +13,7 @@ import SelectGroup from "../../app/components/SelectGroup";
 import AnnouncementSubjectLessonSearch from "./AnnouncementSubjectLessonSearch";
 import AnnouncementCitySearch from "./AnnouncementCitySearch";
 import AppPagination from "../../app/components/AppPagination";
+import useAnnouncements from "../../app/hooks/useAnnouncements";
 
 const sortOptions = [
     {value: 'title', label: 'Alfabetycznie'},
@@ -24,13 +22,9 @@ const sortOptions = [
 ]
 
 export default function Catalog() {
-    const announcements = useAppSelector(announcementSelectors.selectAll);
-    const {announcementsLoaded, announcementParams, metaData} = useAppSelector(state => state.catalog);
+    const {announcements, metaData} = useAnnouncements();
+    const {announcementParams} = useAppSelector(state => state.catalog);
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        if (!announcementsLoaded) dispatch(fetchAnnouncementsAsync());
-    }, [announcementsLoaded, dispatch])
 
     if (!sortOptions) return <LoadingComponent message='Ładuję ogłoszenia...' />
 

@@ -17,6 +17,7 @@ import {fetchCurrentUser} from "../../features/account/accountSlice";
 import LoadingComponent from "./LoadingComponent";
 import PrivateRoute from "./PrivateRoute";
 import AnnouncementAdd from "../../features/announcements/AnnouncementAdd";
+import UserAnnouncements from "../../features/account/UserAnnouncements";
 
 
 function App() {
@@ -67,6 +68,7 @@ function App() {
                     <Route path='/register' component={Register} />
                     <Route path='/server-error' component={ServerError} />
                     <PrivateRoute path='/announcement/add' component={AnnouncementAdd} />
+                    <PrivateRoute path='/announcements/user' component={UserAnnouncements} />
                     <Route component={NotFound} />
                 </Switch>
             </Container>

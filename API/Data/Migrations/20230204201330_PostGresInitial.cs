@@ -20,13 +20,14 @@ namespace API.Data.Migrations
                     SubjectLesson = table.Column<string>(type: "text", nullable: true),
                     Location = table.Column<string>(type: "text", nullable: true),
                     Price = table.Column<long>(type: "bigint", nullable: false),
-                    OnlineLesson = table.Column<bool>(type: "boolean", nullable: false),
+                    OnlineLesson = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
                     PhoneNumber = table.Column<string>(type: "text", nullable: true),
                     SkypeNumber = table.Column<string>(type: "text", nullable: true),
                     PhotoUrl = table.Column<string>(type: "text", nullable: true),
                     FirstName = table.Column<string>(type: "text", nullable: true),
-                    LastName = table.Column<string>(type: "text", nullable: true)
+                    LastName = table.Column<string>(type: "text", nullable: true),
+                    PublicId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -183,8 +184,8 @@ namespace API.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3d39c352-bfb7-486d-b161-59e935f596f3", "dbb9956c-9de7-43cf-8765-5347f7c42bb2", "Admin", "ADMIN" },
-                    { "d538c1e2-3de7-49bc-9e39-caa7d9bafdb7", "ea0c7b2a-ce17-4e5e-9742-f768b92599df", "Member", "MEMBER" }
+                    { "1a3b23b0-74bf-46c1-85d6-d48bfead95a4", "5f856e24-3e97-491b-8562-ddd2c34a68ae", "Admin", "ADMIN" },
+                    { "fd0656eb-6ba5-4c86-b70e-5a70456d42f4", "a6965fea-c614-4b8b-bb68-842f0b2dcb76", "Member", "MEMBER" }
                 });
 
             migrationBuilder.CreateIndex(

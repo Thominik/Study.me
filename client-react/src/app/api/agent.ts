@@ -60,6 +60,26 @@ const request = {
     post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
     put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
     delete: (url: string) => axios.delete(url).then(responseBody),
+    postForm: (url: string, data: FormData) => axios.post(url, data, {
+        headers: {'Content-type': 'multipart/form-data'}
+    }).then(responseBody),
+    putForm: (url: string, data: FormData) => axios.put(url, data, {
+        headers: {'Content-type': 'multipart/form-data'}
+    }).then(responseBody)
+}
+
+function createFormData(item: any) {
+    let formData = new FormData();
+    for (const key in item) {
+        formData.append(key, item[key])
+    }
+    return formData;
+}
+
+const Member = {
+    createAnnouncement: (announcement: any) => request.postForm('announcements', createFormData(announcement)),
+    updateAnnouncement: (announcement: any) => request.putForm('announcements', createFormData(announcement)),
+    deleteAnnouncement: (id: number) => request.delete(`announcements/${id}`)
 }
 
 const Catalog = {
@@ -84,7 +104,8 @@ const Account = {
 const agent = {
     Catalog,
     TestErrors,
-    Account
+    Account,
+    Member
 }
 
 export default agent;
