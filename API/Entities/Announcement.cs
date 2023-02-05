@@ -15,4 +15,5 @@ public class Announcement
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string PublicId { get; set; }
+    public string AnnouncementOwner { get; set; }
 }

@@ -30,6 +30,9 @@ namespace API.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AnnouncementOwner")
+                        .HasColumnType("text");
+
                     b.Property<string>("AnnouncementTitle")
                         .HasColumnType("text");
 
@@ -163,15 +166,15 @@ namespace API.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fd0656eb-6ba5-4c86-b70e-5a70456d42f4",
-                            ConcurrencyStamp = "a6965fea-c614-4b8b-bb68-842f0b2dcb76",
+                            Id = "71c51615-793c-42f9-8892-d8f5969b5a7e",
+                            ConcurrencyStamp = "585215b2-0396-40ac-8b02-2a971948aa58",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "1a3b23b0-74bf-46c1-85d6-d48bfead95a4",
-                            ConcurrencyStamp = "5f856e24-3e97-491b-8562-ddd2c34a68ae",
+                            Id = "f1ab4669-04fb-43f3-b766-82aedc3ab4c2",
+                            ConcurrencyStamp = "a5d72db3-e914-4f3c-a29f-7eaf175b51dd",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

@@ -1,14 +1,14 @@
 import {useAppDispatch, useAppSelector} from "../../store/configureStore";
-import {announcementSelectors, fetchOwnerAnnouncementsAsync} from "../../features/announcements/announcementSlice";
+import {announcementSelectors, fetchAnnouncementsAsync} from "../../features/announcements/announcementSlice";
 import {useEffect} from "react";
 
-export default function useAnnouncements() {
+export default function useCatalog() {
     const announcements = useAppSelector(announcementSelectors.selectAll);
     const {announcementsLoaded, metaData} = useAppSelector(state => state.catalog);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!announcementsLoaded) dispatch(fetchOwnerAnnouncementsAsync());
+        if (!announcementsLoaded) dispatch(fetchAnnouncementsAsync());
     }, [announcementsLoaded, dispatch])
 
     return {

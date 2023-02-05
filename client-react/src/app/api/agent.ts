@@ -83,8 +83,9 @@ const Member = {
 }
 
 const Catalog = {
-    list: (params: URLSearchParams) => request.get('announcement', params),
-    details: (id: number) => request.get(`announcement/${id}`)
+    list: (params: URLSearchParams) => request.get('announcement/GetAll', params),
+    details: (id: number) => request.get(`announcement/${id}`),
+    ownerList: (params: URLSearchParams) => request.get('Announcement/GetAnnouncementsByUsername', params)
 }
 
 const TestErrors = {

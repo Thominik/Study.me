@@ -50,7 +50,6 @@ export default function UserAnnouncements() {
     }
 
     if (editMode) return <AnnouncementForm announcement={selectedAnnouncement} cancelEdit={cancelEdit} />
-        console.log(announcements);
     return (
         <>
             <Box display='flex' justifyContent='space-between'>

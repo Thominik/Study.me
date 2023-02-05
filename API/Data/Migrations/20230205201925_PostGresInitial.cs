@@ -27,7 +27,8 @@ namespace API.Data.Migrations
                     PhotoUrl = table.Column<string>(type: "text", nullable: true),
                     FirstName = table.Column<string>(type: "text", nullable: true),
                     LastName = table.Column<string>(type: "text", nullable: true),
-                    PublicId = table.Column<string>(type: "text", nullable: true)
+                    PublicId = table.Column<string>(type: "text", nullable: true),
+                    AnnouncementOwner = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -184,8 +185,8 @@ namespace API.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1a3b23b0-74bf-46c1-85d6-d48bfead95a4", "5f856e24-3e97-491b-8562-ddd2c34a68ae", "Admin", "ADMIN" },
-                    { "fd0656eb-6ba5-4c86-b70e-5a70456d42f4", "a6965fea-c614-4b8b-bb68-842f0b2dcb76", "Member", "MEMBER" }
+                    { "71c51615-793c-42f9-8892-d8f5969b5a7e", "585215b2-0396-40ac-8b02-2a971948aa58", "Member", "MEMBER" },
+                    { "f1ab4669-04fb-43f3-b766-82aedc3ab4c2", "a5d72db3-e914-4f3c-a29f-7eaf175b51dd", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(

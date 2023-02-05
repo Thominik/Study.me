@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text.Json;
 using API.Data;
 using API.DTOs;
@@ -26,10 +27,31 @@ public class AnnouncementController : BaseApiController
         _imageService = imageService;
     }
 
-    [HttpGet]
+    [HttpGet("GetAll")]
     public async Task<ActionResult<PagedList<Announcement>>> GetAnnouncements([FromQuery]AnnouncementParams announcementParams)
     {
         var query = _context.Announcements
+            .Sort(announcementParams.OrderBy)
+            .Search(announcementParams.SearchTerm)
+            .CityFilter(announcementParams.CityTerm)
+            .SubjectFilter(announcementParams.SubjectLessonTerm)
+            .AsQueryable();
+
+        var announcements = await PagedList<Announcement>.ToPagedList(query,
+            announcementParams.PageNumber, announcementParams.PageSize);
+        
+        Response.AddPaginationHeader(announcements.MetaData);
+
+        return announcements;
+    }
+    
+    [HttpGet("GetAnnouncementsByUsername")]
+    public async Task<ActionResult<PagedList<Announcement>>> GetAnnouncementsByUsername([FromQuery]AnnouncementParams announcementParams)
+    {
+        var currentUserName = User.FindFirstValue(ClaimTypes.Name);
+        
+        var query = _context.Announcements
+            .Where(x => x.AnnouncementOwner == currentUserName)
             .Sort(announcementParams.OrderBy)
             .Search(announcementParams.SearchTerm)
             .CityFilter(announcementParams.CityTerm)
@@ -70,6 +92,9 @@ public class AnnouncementController : BaseApiController
             announcement.PhotoUrl = imageResult.SecureUrl.AbsoluteUri;
             announcement.PublicId = imageResult.PublicId;
         }
+
+        var currentUserName = User.Identity.Name;
+        announcement.AnnouncementOwner = currentUserName;
 
         _context.Announcements.Add(announcement);
 

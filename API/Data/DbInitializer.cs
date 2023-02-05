@@ -45,7 +45,8 @@ public class DbInitializer
                 SkypeNumber = "lukas23",
                 PhotoUrl = "/images/people/lukas.png",
                 FirstName = "Łukasz",
-                LastName = "Nowak"
+                LastName = "Nowak",
+                AnnouncementOwner = "dominik"
             },
             new Announcement
             {
@@ -60,7 +61,8 @@ public class DbInitializer
                 SkypeNumber = "anna.k2",
                 PhotoUrl = "/images/people/anna.png",
                 FirstName = "Anna",
-                LastName = "Nowaczkiewicz"
+                LastName = "Nowaczkiewicz",
+                AnnouncementOwner = "dominik"
             },
             new Announcement
             {
@@ -75,7 +77,8 @@ public class DbInitializer
                 SkypeNumber = "kasix.q",
                 PhotoUrl = "/images/people/kasia.png",
                 FirstName = "Kasia",
-                LastName = "Duda"
+                LastName = "Duda",
+                AnnouncementOwner = "dominik"
             },
             new Announcement
             {
@@ -90,7 +93,8 @@ public class DbInitializer
                 SkypeNumber = "adas.w3",
                 PhotoUrl = "/images/people/adam.png",
                 FirstName = "Adam",
-                LastName = "Wawrej"
+                LastName = "Wawrej",
+                AnnouncementOwner = "dominik"
             },
             new Announcement
             {
@@ -105,7 +109,8 @@ public class DbInitializer
                 SkypeNumber = "krz.krz2",
                 PhotoUrl = "/images/people/krzysiek.png",
                 FirstName = "Krzysiek",
-                LastName = "Nowak"
+                LastName = "Nowak",
+                AnnouncementOwner = "dominik"
             },
             new Announcement
             {
@@ -120,7 +125,8 @@ public class DbInitializer
                 SkypeNumber = "michu567",
                 PhotoUrl = "/images/people/michal.png",
                 FirstName = "Michał",
-                LastName = "Kowalski"
+                LastName = "Kowalski",
+                AnnouncementOwner = "admin"
             },
         };
 

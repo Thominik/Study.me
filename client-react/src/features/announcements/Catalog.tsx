@@ -13,7 +13,7 @@ import SelectGroup from "../../app/components/SelectGroup";
 import AnnouncementSubjectLessonSearch from "./AnnouncementSubjectLessonSearch";
 import AnnouncementCitySearch from "./AnnouncementCitySearch";
 import AppPagination from "../../app/components/AppPagination";
-import useAnnouncements from "../../app/hooks/useAnnouncements";
+import useCatalog from "../../app/hooks/useCatalog";
 
 const sortOptions = [
     {value: 'title', label: 'Alfabetycznie'},
@@ -22,7 +22,7 @@ const sortOptions = [
 ]
 
 export default function Catalog() {
-    const {announcements, metaData} = useAnnouncements();
+    const {announcements, metaData} = useCatalog();
     const {announcementParams} = useAppSelector(state => state.catalog);
     const dispatch = useAppDispatch();
 
