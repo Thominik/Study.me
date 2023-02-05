@@ -8,7 +8,7 @@ export default function useCatalog() {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!announcementsLoaded) dispatch(fetchAnnouncementsAsync());
+        dispatch(fetchAnnouncementsAsync());
     }, [announcementsLoaded, dispatch])
 
     return {

@@ -8,7 +8,7 @@ export default function useAnnouncements() {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!announcementsLoaded) dispatch(fetchOwnerAnnouncementsAsync());
+        dispatch(fetchOwnerAnnouncementsAsync());
     }, [announcementsLoaded, dispatch])
 
     return {
