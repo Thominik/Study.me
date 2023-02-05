@@ -37,7 +37,7 @@ export default function UserAnnouncements() {
     }
 
     if (editMode) return <AnnouncementForm announcement={selectedAnnouncement} cancelEdit={cancelEdit} />
-
+        console.log(announcements);
     return (
         <>
             <Box display='flex' justifyContent='space-between'>
@@ -52,9 +52,9 @@ export default function UserAnnouncements() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {announcements.map((announcement, index) => (
+                        {announcements.map((announcement) => (
                             <TableRow
-                                key={`${announcement.id}-${index}`}
+                                key={announcement.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell align="left">

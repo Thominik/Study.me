@@ -90,9 +90,9 @@ public class AnnouncementController : BaseApiController
         
         _mapper.Map(announcementDto, announcement);
 
-        if (announcementDto.PhotoUrl != null)
+        if (announcementDto.File != null)
         {
-            var imageResult = await _imageService.AddImageAsync(announcementDto.PhotoUrl);
+            var imageResult = await _imageService.AddImageAsync(announcementDto.File);
             
             if (imageResult.Error != null) 
                 return BadRequest(new ProblemDetails{Title = "Błąd podczas aktualizacji zdjęcia"});

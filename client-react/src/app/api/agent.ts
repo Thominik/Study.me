@@ -77,9 +77,9 @@ function createFormData(item: any) {
 }
 
 const Member = {
-    createAnnouncement: (announcement: any) => request.postForm('announcements', createFormData(announcement)),
-    updateAnnouncement: (announcement: any) => request.putForm('announcements', createFormData(announcement)),
-    deleteAnnouncement: (id: number) => request.delete(`announcements/${id}`)
+    createAnnouncement: (announcement: any) => request.postForm('announcement', createFormData(announcement)),
+    updateAnnouncement: (announcement: any) => request.putForm('announcement', createFormData(announcement)),
+    deleteAnnouncement: (id: number) => request.delete(`announcement/${id}`)
 }
 
 const Catalog = {

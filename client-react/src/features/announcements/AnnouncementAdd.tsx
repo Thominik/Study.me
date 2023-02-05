@@ -1,13 +1,15 @@
-import {Typography, Grid, Paper, Box, Button, Avatar, Checkbox} from "@mui/material";
+import {Typography, Grid, Paper, Box, Button, Avatar} from "@mui/material";
 import {FieldValues, useForm} from "react-hook-form";
 import AppTextInput from "../../app/components/AppTextInput";
 import {Announcement} from "../../app/models/announcement";
-import {useEffect, useState} from "react";
-import useAnnouncements from "../../app/hooks/useAnnouncements";
-import {toast} from "react-toastify";
+import {useEffect} from "react";
 import AppDropzone from "../../app/components/AppDropzone";
 import {validationSchema} from "./announcementValidation";
 import {yupResolver} from "@hookform/resolvers/yup";
+import {LoadingButton} from "@mui/lab";
+import agent from "../../app/api/agent";
+import {setAnnouncement} from "./announcementSlice";
+import {useAppDispatch} from "../../store/configureStore";
 
 interface Props {
     announcement?: Announcement;
@@ -15,17 +17,32 @@ interface Props {
 }
 
 export default function AnnouncementForm({announcement, cancelEdit}: Props) {
-    const { control, reset, handleSubmit, watch } = useForm();
-    const {announcements} = useAnnouncements();
+    const { control, reset, handleSubmit, watch, formState: {isDirty, isSubmitting} } = useForm({
+        resolver: yupResolver<any>(validationSchema)
+    });
     const watchFile = watch('file', null);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (announcement) reset(announcement);
-    }, [announcement, reset])
+        if (announcement && !watchFile && !isDirty) reset(announcement);
+        return () => {
+            if (watchFile) URL.revokeObjectURL(watchFile.preview);
+        }
+    }, [announcement, reset, watchFile, isDirty])
 
-    function handleSubmitData(data: FieldValues) {
-        console.log(data.onlineLesson);
-        console.log(data);
+    async function handleSubmitData(data: FieldValues) {
+        try {
+            let response: Announcement;
+            if (announcement) {
+                response = await agent.Member.updateAnnouncement(data);
+            } else {
+                response = await agent.Member.createAnnouncement(data);
+            }
+            dispatch(setAnnouncement(response));
+            cancelEdit();
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -78,7 +95,7 @@ export default function AnnouncementForm({announcement, cancelEdit}: Props) {
                 </Grid>
                 <Box display='flex' justifyContent='space-between' sx={{mt: 3}}>
                     <Button onClick={cancelEdit} variant='contained' color='inherit'>Wróć</Button>
-                    <Button type='submit' variant='contained' color='success'>Potwierdź</Button>
+                    <LoadingButton loading={isSubmitting} type='submit' variant='contained' color='success'>Potwierdź</LoadingButton>
                 </Box>
             </form>
         </Box>

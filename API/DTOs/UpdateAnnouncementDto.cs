@@ -21,7 +21,7 @@ public class UpdateAnnouncementDto
     public string Description { get; set; }
     public string? PhoneNumber { get; set; }
     public string? SkypeNumber { get; set; }
-    public IFormFile? PhotoUrl { get; set; }
+    public IFormFile? File { get; set; }
     [Required]
     public string FirstName { get; set; }
     [Required]
