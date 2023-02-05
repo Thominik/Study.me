@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(StudyContext))]
-    [Migration("20230131073947_PostGresInitial")]
+    [Migration("20230205201925_PostGresInitial")]
     partial class PostGresInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,9 @@ namespace API.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AnnouncementOwner")
+                        .HasColumnType("text");
+
                     b.Property<string>("AnnouncementTitle")
                         .HasColumnType("text");
 
@@ -47,8 +50,8 @@ namespace API.Data.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("text");
 
-                    b.Property<bool>("OnlineLesson")
-                        .HasColumnType("boolean");
+                    b.Property<string>("OnlineLesson")
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
@@ -58,6 +61,9 @@ namespace API.Data.Migrations
 
                     b.Property<long>("Price")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("PublicId")
+                        .HasColumnType("text");
 
                     b.Property<string>("SkypeNumber")
                         .HasColumnType("text");
@@ -162,15 +168,15 @@ namespace API.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d538c1e2-3de7-49bc-9e39-caa7d9bafdb7",
-                            ConcurrencyStamp = "ea0c7b2a-ce17-4e5e-9742-f768b92599df",
+                            Id = "71c51615-793c-42f9-8892-d8f5969b5a7e",
+                            ConcurrencyStamp = "585215b2-0396-40ac-8b02-2a971948aa58",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "3d39c352-bfb7-486d-b161-59e935f596f3",
-                            ConcurrencyStamp = "dbb9956c-9de7-43cf-8765-5347f7c42bb2",
+                            Id = "f1ab4669-04fb-43f3-b766-82aedc3ab4c2",
+                            ConcurrencyStamp = "a5d72db3-e914-4f3c-a29f-7eaf175b51dd",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

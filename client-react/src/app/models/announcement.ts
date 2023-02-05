@@ -4,7 +4,7 @@ export interface Announcement {
     subjectLesson: string;
     location: string;
     price: number;
-    onlineLesson: boolean;
+    onlineLesson: string;
     description: string;
     phoneNumber: string;
     skypeNumber: string;

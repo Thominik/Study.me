@@ -20,13 +20,15 @@ namespace API.Data.Migrations
                     SubjectLesson = table.Column<string>(type: "text", nullable: true),
                     Location = table.Column<string>(type: "text", nullable: true),
                     Price = table.Column<long>(type: "bigint", nullable: false),
-                    OnlineLesson = table.Column<bool>(type: "boolean", nullable: false),
+                    OnlineLesson = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
                     PhoneNumber = table.Column<string>(type: "text", nullable: true),
                     SkypeNumber = table.Column<string>(type: "text", nullable: true),
                     PhotoUrl = table.Column<string>(type: "text", nullable: true),
                     FirstName = table.Column<string>(type: "text", nullable: true),
-                    LastName = table.Column<string>(type: "text", nullable: true)
+                    LastName = table.Column<string>(type: "text", nullable: true),
+                    PublicId = table.Column<string>(type: "text", nullable: true),
+                    AnnouncementOwner = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -183,8 +185,8 @@ namespace API.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3d39c352-bfb7-486d-b161-59e935f596f3", "dbb9956c-9de7-43cf-8765-5347f7c42bb2", "Admin", "ADMIN" },
-                    { "d538c1e2-3de7-49bc-9e39-caa7d9bafdb7", "ea0c7b2a-ce17-4e5e-9742-f768b92599df", "Member", "MEMBER" }
+                    { "71c51615-793c-42f9-8892-d8f5969b5a7e", "585215b2-0396-40ac-8b02-2a971948aa58", "Member", "MEMBER" },
+                    { "f1ab4669-04fb-43f3-b766-82aedc3ab4c2", "a5d72db3-e914-4f3c-a29f-7eaf175b51dd", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(

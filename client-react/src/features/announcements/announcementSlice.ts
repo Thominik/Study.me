@@ -38,6 +38,20 @@ export const fetchAnnouncementsAsync = createAsyncThunk<Announcement[], void, {s
     }
 )
 
+export const fetchOwnerAnnouncementsAsync = createAsyncThunk<Announcement[], void, {state: RootState}>(
+    'catalog/fetchOwnerAnnouncementsAsync',
+    async (_, thunkAPI) => {
+        const params = getAxiosParams(thunkAPI.getState().catalog.announcementParams);
+        try {
+            const response = await agent.Catalog.ownerList(params);
+            thunkAPI.dispatch(setMetaData(response.metaData));
+            return response.items;
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue({error: error.data})
+        }
+    }
+)
+
 export const fetchAnnouncementAsync = createAsyncThunk<Announcement, number>(
     'catalog/fetchAnnouncementAsync',
     async (announcementId, thunkAPI) => {
@@ -79,8 +93,17 @@ export const catalogSlice = createSlice({
         },
         resetAnnouncementParams: (state) => {
             state.announcementParams = initParams();
+        },
+        setAnnouncement: (state, action) => {
+            announcementAdapter.upsertOne(state, action.payload);
+            state.announcementsLoaded = false;
+        },
+        removeAnnouncement: (state, action) => {
+            announcementAdapter.removeOne(state, action.payload);
+            state.announcementsLoaded = false;
         }
-    },
+    }
+    ,
     extraReducers: (builder => {
         builder.addCase(fetchAnnouncementsAsync.pending, (state) => {
             state.status = 'pendingFetchAnnouncements';
@@ -91,6 +114,18 @@ export const catalogSlice = createSlice({
             state.announcementsLoaded = true;
         });
         builder.addCase(fetchAnnouncementsAsync.rejected, (state, action) => {
+            console.log(action.payload);
+            state.status = 'idle';
+        });
+        builder.addCase(fetchOwnerAnnouncementsAsync.pending, (state) => {
+            state.status = 'pendingFetchOwnerAnnouncements';
+        });
+        builder.addCase(fetchOwnerAnnouncementsAsync.fulfilled, (state, action) => {
+            announcementAdapter.setAll(state, action.payload);
+            state.status = 'idle';
+            state.announcementsLoaded = true;
+        });
+        builder.addCase(fetchOwnerAnnouncementsAsync.rejected, (state, action) => {
             console.log(action.payload);
             state.status = 'idle';
         });
@@ -110,4 +145,4 @@ export const catalogSlice = createSlice({
 
 export const announcementSelectors = announcementAdapter.getSelectors((state: RootState) => state.catalog);
 
-export const {setAnnouncementParams, resetAnnouncementParams, setMetaData, setPageNumber} = catalogSlice.actions;
+export const {setAnnouncementParams, resetAnnouncementParams, setMetaData, setPageNumber, setAnnouncement, removeAnnouncement} = catalogSlice.actions;

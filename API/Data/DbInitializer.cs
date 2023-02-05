@@ -40,12 +40,13 @@ public class DbInitializer
                 Price = 60,
                 Location = "Rzeszów",
                 SubjectLesson = "język angielski",
-                OnlineLesson = true,
+                OnlineLesson = "Zajęcia online",
                 PhoneNumber = "725725724",
                 SkypeNumber = "lukas23",
                 PhotoUrl = "/images/people/lukas.png",
                 FirstName = "Łukasz",
-                LastName = "Nowak"
+                LastName = "Nowak",
+                AnnouncementOwner = "dominik"
             },
             new Announcement
             {
@@ -55,12 +56,13 @@ public class DbInitializer
                 Price = 100,
                 Location = "Kraków",
                 SubjectLesson = "programowanie",
-                OnlineLesson = true,
+                OnlineLesson = "Zajęcia stacjonarne",
                 PhoneNumber = "345091123",
                 SkypeNumber = "anna.k2",
                 PhotoUrl = "/images/people/anna.png",
                 FirstName = "Anna",
-                LastName = "Nowaczkiewicz"
+                LastName = "Nowaczkiewicz",
+                AnnouncementOwner = "dominik"
             },
             new Announcement
             {
@@ -70,12 +72,13 @@ public class DbInitializer
                 Price = 30,
                 Location = "Lublin",
                 SubjectLesson = "matematyka",
-                OnlineLesson = false,
+                OnlineLesson = "Zajęcia stacjonarne i online",
                 PhoneNumber = "777341001",
                 SkypeNumber = "kasix.q",
                 PhotoUrl = "/images/people/kasia.png",
                 FirstName = "Kasia",
-                LastName = "Duda"
+                LastName = "Duda",
+                AnnouncementOwner = "dominik"
             },
             new Announcement
             {
@@ -85,12 +88,13 @@ public class DbInitializer
                 Price = 75,
                 Location = "Warszawa",
                 SubjectLesson = "Biologia",
-                OnlineLesson = true,
+                OnlineLesson = "Zajęcia online",
                 PhoneNumber = "656898100",
                 SkypeNumber = "adas.w3",
                 PhotoUrl = "/images/people/adam.png",
                 FirstName = "Adam",
-                LastName = "Wawrej"
+                LastName = "Wawrej",
+                AnnouncementOwner = "dominik"
             },
             new Announcement
             {
@@ -100,12 +104,13 @@ public class DbInitializer
                 Price = 60,
                 Location = "Szczecin",
                 SubjectLesson = "język niemiecki",
-                OnlineLesson = false,
+                OnlineLesson = "Zajęcia online i stacjonarne",
                 PhoneNumber = "700700898",
                 SkypeNumber = "krz.krz2",
                 PhotoUrl = "/images/people/krzysiek.png",
                 FirstName = "Krzysiek",
-                LastName = "Nowak"
+                LastName = "Nowak",
+                AnnouncementOwner = "dominik"
             },
             new Announcement
             {
@@ -115,12 +120,13 @@ public class DbInitializer
                 Price = 30,
                 Location = "Rzeszów",
                 SubjectLesson = "gra na gitarze",
-                OnlineLesson = false,
+                OnlineLesson = "Zajęcia stacjonarne u ucznia",
                 PhoneNumber = "456983222",
                 SkypeNumber = "michu567",
                 PhotoUrl = "/images/people/michal.png",
                 FirstName = "Michał",
-                LastName = "Kowalski"
+                LastName = "Kowalski",
+                AnnouncementOwner = "admin"
             },
         };
 

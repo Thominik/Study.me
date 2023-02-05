@@ -60,11 +60,32 @@ const request = {
     post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
     put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
     delete: (url: string) => axios.delete(url).then(responseBody),
+    postForm: (url: string, data: FormData) => axios.post(url, data, {
+        headers: {'Content-type': 'multipart/form-data'}
+    }).then(responseBody),
+    putForm: (url: string, data: FormData) => axios.put(url, data, {
+        headers: {'Content-type': 'multipart/form-data'}
+    }).then(responseBody)
+}
+
+function createFormData(item: any) {
+    let formData = new FormData();
+    for (const key in item) {
+        formData.append(key, item[key])
+    }
+    return formData;
+}
+
+const Member = {
+    createAnnouncement: (announcement: any) => request.postForm('announcement', createFormData(announcement)),
+    updateAnnouncement: (announcement: any) => request.putForm('announcement', createFormData(announcement)),
+    deleteAnnouncement: (id: number) => request.delete(`announcement/${id}`)
 }
 
 const Catalog = {
-    list: (params: URLSearchParams) => request.get('announcement', params),
-    details: (id: number) => request.get(`announcement/${id}`)
+    list: (params: URLSearchParams) => request.get('announcement/GetAll', params),
+    details: (id: number) => request.get(`announcement/${id}`),
+    ownerList: (params: URLSearchParams) => request.get('Announcement/GetAnnouncementsByUsername', params)
 }
 
 const TestErrors = {
@@ -84,7 +105,8 @@ const Account = {
 const agent = {
     Catalog,
     TestErrors,
-    Account
+    Account,
+    Member
 }
 
 export default agent;
