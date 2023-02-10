@@ -37,7 +37,7 @@ export default function HomePage() {
                 ) : (
                         <>
                 <Grid item>
-                    <Box display='flex' justifyContent='center' sx={{ml: -10}}>
+                    <Box display='flex' justifyContent='center' sx={{ml: -20}}>
                         <img style={{display: 'flex', maxWidth: '70%'}}
                              src='/images/home2.png' alt='home.png'
                         />
