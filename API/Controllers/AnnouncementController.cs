@@ -28,7 +28,8 @@ public class AnnouncementController : BaseApiController
     }
 
     [HttpGet("GetAll")]
-    public async Task<ActionResult<PagedList<Announcement>>> GetAnnouncements([FromQuery]AnnouncementParams announcementParams)
+    public async Task<ActionResult<PagedList<Announcement>>> 
+        GetAnnouncements([FromQuery]AnnouncementParams announcementParams)
     {
         var query = _context.Announcements
             .Sort(announcementParams.OrderBy)
@@ -46,7 +47,8 @@ public class AnnouncementController : BaseApiController
     }
     
     [HttpGet("GetAnnouncementsByUsername")]
-    public async Task<ActionResult<PagedList<Announcement>>> GetAnnouncementsByUsername([FromQuery]AnnouncementParams announcementParams)
+    public async Task<ActionResult<PagedList<Announcement>>> 
+        GetAnnouncementsByUsername([FromQuery]AnnouncementParams announcementParams)
     {
         var currentUserName = User.FindFirstValue(ClaimTypes.Name);
         
@@ -78,14 +80,14 @@ public class AnnouncementController : BaseApiController
     
     [Authorize(Roles = "Member")]
     [HttpPost]
-    public async Task<ActionResult<Announcement>> CreateAnnouncement([FromForm]CreateAnnouncementDto announcementDto)
+    public async Task<ActionResult<Announcement>> 
+        CreateAnnouncement([FromForm]CreateAnnouncementDto announcementDto)
     {
         var announcement = _mapper.Map<Announcement>(announcementDto);
         
         if (announcementDto != null)
         {
             var imageResult = await _imageService.AddImageAsync(announcementDto.File);
-            
             if (imageResult.Error != null) 
                 return BadRequest(new ProblemDetails{Title = "Błąd podczas dodawania zdjęcia"});
             
@@ -95,11 +97,9 @@ public class AnnouncementController : BaseApiController
 
         var currentUserName = User.Identity.Name;
         announcement.AnnouncementOwner = currentUserName;
-
         _context.Announcements.Add(announcement);
 
         var result = await _context.SaveChangesAsync() > 0;
-
         if (result) return CreatedAtRoute("GetAnnouncement", new {Id = announcement.Id}, announcement);
 
         return BadRequest(new ProblemDetails {Title = "Bład podczas dodawania ogłoszenia"});
