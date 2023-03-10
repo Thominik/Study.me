@@ -98,6 +98,10 @@ public class AnnouncementController : BaseApiController
         var currentUserName = User.Identity.Name;
         announcement.AnnouncementOwner = currentUserName;
         _context.Announcements.Add(announcement);
+        
+        var currentEmail = User.FindFirstValue(ClaimTypes.Email);
+        announcement.OptionalEmail = currentEmail;
+        _context.Announcements.Add(announcement);
 
         var result = await _context.SaveChangesAsync() > 0;
         if (result) return CreatedAtRoute("GetAnnouncement", new {Id = announcement.Id}, announcement);

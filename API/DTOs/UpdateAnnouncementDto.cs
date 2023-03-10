@@ -17,7 +17,8 @@ public class UpdateAnnouncementDto
     [Required]
     public string OnlineLesson { get; set; }
     [Required]
-    [MaxLength(200)]
+    [MinLength(200)]
+    [MaxLength(900)]
     public string Description { get; set; }
     public string? PhoneNumber { get; set; }
     public string? SkypeNumber { get; set; }

@@ -1,3 +1,4 @@
+using System.Net.Mail;
 using API.Entities;
 using Microsoft.AspNetCore.Identity;
 
@@ -46,7 +47,8 @@ public class DbInitializer
                 PhotoUrl = "/images/people/lukas.png",
                 FirstName = "Łukasz",
                 LastName = "Nowak",
-                AnnouncementOwner = "dominik"
+                AnnouncementOwner = "dominik",
+                OptionalEmail = "lukas23@mail.com"
             },
             new Announcement
             {
@@ -62,7 +64,8 @@ public class DbInitializer
                 PhotoUrl = "/images/people/anna.png",
                 FirstName = "Anna",
                 LastName = "Nowaczkiewicz",
-                AnnouncementOwner = "dominik"
+                AnnouncementOwner = "dominik",
+                OptionalEmail = "annak2@mail.com"
             },
             new Announcement
             {
@@ -78,7 +81,8 @@ public class DbInitializer
                 PhotoUrl = "/images/people/kasia.png",
                 FirstName = "Kasia",
                 LastName = "Duda",
-                AnnouncementOwner = "dominik"
+                AnnouncementOwner = "dominik",
+                OptionalEmail = "kasix.q@gmail.com"
             },
             new Announcement
             {
@@ -94,7 +98,8 @@ public class DbInitializer
                 PhotoUrl = "/images/people/adam.png",
                 FirstName = "Adam",
                 LastName = "Wawrej",
-                AnnouncementOwner = "dominik"
+                AnnouncementOwner = "dominik",
+                OptionalEmail = "adas.w3@mail.com"
             },
             new Announcement
             {
@@ -110,7 +115,8 @@ public class DbInitializer
                 PhotoUrl = "/images/people/krzysiek.png",
                 FirstName = "Krzysiek",
                 LastName = "Nowak",
-                AnnouncementOwner = "dominik"
+                AnnouncementOwner = "dominik",
+                OptionalEmail = "krz.krz2@mail.com"
             },
             new Announcement
             {
@@ -126,7 +132,8 @@ public class DbInitializer
                 PhotoUrl = "/images/people/michal.png",
                 FirstName = "Michał",
                 LastName = "Kowalski",
-                AnnouncementOwner = "admin"
+                AnnouncementOwner = "admin",
+                OptionalEmail = "michu567@mail.com"
             },
         };
 

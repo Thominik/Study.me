@@ -16,7 +16,8 @@ public class CreateAnnouncementDto
     [Required]
     public string OnlineLesson { get; set; }
     [Required]
-    [MaxLength(200)]
+    [MinLength(200)]
+    [MaxLength(900)]
     public string Description { get; set; }
     [Required]
     public string PhoneNumber { get; set; }

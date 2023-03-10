@@ -1,3 +1,5 @@
+using System.Net.Mail;
+
 namespace API.Entities;
 
 public class Announcement
@@ -16,4 +18,5 @@ public class Announcement
     public string LastName { get; set; }
     public string PublicId { get; set; }
     public string AnnouncementOwner { get; set; }
+    public string OptionalEmail { get; set; }
 }

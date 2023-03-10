@@ -72,7 +72,7 @@ export default function AnnouncementDetails({user}: Props) {
                             </TableRow>
                             <TableRow>
                                 <TableCell style={{borderBottom:"none"}} align='right'><Icon><Email color='primary'></Email></Icon></TableCell>
-                                <TableCell style={{borderBottom:"none"}} align='left'>{user?.email}</TableCell>
+                                <TableCell style={{borderBottom:"none"}} align='left'>{announcement.optionalEmail}</TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>

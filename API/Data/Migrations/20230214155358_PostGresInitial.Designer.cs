@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(StudyContext))]
-    [Migration("20230205201925_PostGresInitial")]
+    [Migration("20230214155358_PostGresInitial")]
     partial class PostGresInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,6 +51,9 @@ namespace API.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("OnlineLesson")
+                        .HasColumnType("text");
+
+                    b.Property<string>("OptionalEmail")
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
@@ -168,15 +171,15 @@ namespace API.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "71c51615-793c-42f9-8892-d8f5969b5a7e",
-                            ConcurrencyStamp = "585215b2-0396-40ac-8b02-2a971948aa58",
+                            Id = "93caea7e-d4d5-451e-9b90-9a174f02ab5c",
+                            ConcurrencyStamp = "500833e3-3307-4f8b-ab5a-04c8d02282cb",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "f1ab4669-04fb-43f3-b766-82aedc3ab4c2",
-                            ConcurrencyStamp = "a5d72db3-e914-4f3c-a29f-7eaf175b51dd",
+                            Id = "ffee0b0a-2547-4bf3-831e-7fb03850d424",
+                            ConcurrencyStamp = "ca264395-2459-4b4b-badb-8bb64a86f62f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

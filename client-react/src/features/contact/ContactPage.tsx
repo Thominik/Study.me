@@ -36,17 +36,17 @@ export default function ContactPage() {
                 <Grid container item xs={12} sm={6} direction='column' justifyContent='center' alignItems="center"
                       sx={{mb: 5}}>
                     <IconButton><Facebook style={{width: '90px', height: '90px'}}></Facebook></IconButton>
-                    <Typography variant='h5'>support@studyme.com</Typography>
+                    <Typography variant='h5'>facebook.com/studyme</Typography>
                 </Grid>
                 <Grid container item xs={12} sm={6} direction='column' justifyContent='center' alignItems="center"
                       sx={{mb: 5}}>
                     <IconButton><Twitter style={{width: '90px', height: '90px'}}></Twitter></IconButton>
-                    <Typography variant='h5'>support@studyme.com</Typography>
+                    <Typography variant='h5'>twitter.com/studyme</Typography>
                 </Grid>
                 <Grid container item xs={12} sm={6} direction='column' justifyContent='center' alignItems="center"
                       sx={{mb: 5}}>
                     <IconButton><PhoneIphone style={{width: '90px', height: '90px'}}></PhoneIphone></IconButton>
-                    <Typography variant='h5'>support@studyme.com</Typography>
+                    <Typography variant='h5'>+48 220 987 233</Typography>
                 </Grid>
             </Grid>
             <Divider sx={{mb: 12}}/>
