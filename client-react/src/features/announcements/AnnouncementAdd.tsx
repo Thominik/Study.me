@@ -1,4 +1,4 @@
-import {Typography, Grid, Paper, Box, Button, Avatar} from "@mui/material";
+import {Typography, Grid, Paper, Box, Button, Avatar, useTheme, useMediaQuery} from "@mui/material";
 import {FieldValues, useForm} from "react-hook-form";
 import AppTextInput from "../../app/components/AppTextInput";
 import {Announcement} from "../../app/models/announcement";
@@ -45,6 +45,9 @@ export default function AnnouncementForm({announcement, cancelEdit}: Props) {
         }
     }
 
+    const theme= useTheme();
+    const isMatch = useMediaQuery(theme.breakpoints.down('lg'));
+
     return (
         <Box component={Paper} sx={{p: 4}}>
             <Typography variant="h4" gutterBottom sx={{mb: 4}}>
@@ -76,15 +79,25 @@ export default function AnnouncementForm({announcement, cancelEdit}: Props) {
                     <Grid item xs={12}>
                         <AppTextInput control={control} name='skypeNumber' label='Numer Skype' />
                     </Grid>
-                    <Grid item xs={12} lg={6}>
-                        <Box display='flex' justifyContent='space-evenly' alignItems='center'>
-                            <AppDropzone control={control} name='file' />
-                            {watchFile ? (
-                                <Avatar src={watchFile.preview} alt="preview" style={{maxWidth: 120, maxHeight: 120}}/>
-                            ) : (
-                                <Avatar src={announcement?.photoUrl} alt={announcement?.announcementTitle} style={{width: 120, height: 120}}/>
-                            )}
-                        </Box>
+                    <Grid item xs={12}>
+                        {isMatch ?
+                            (<Box display='flex' justifyContent='space-between' alignItems='center'>
+                                <AppDropzone control={control} name='file' />
+                                {watchFile ? (
+                                    <Avatar src={watchFile.preview} alt="preview" sx={{ width: 90, height: 90 }}/>
+                                ) : (
+                                    <Avatar src={announcement?.photoUrl} alt={announcement?.announcementTitle} sx={{ width: 90, height: 90 }}/>
+                                )}
+                            </Box>) :
+                            (
+                                <Box display='flex' justifyContent='space-evenly' alignItems='center'>
+                                    <AppDropzone control={control} name='file' />
+                                    {watchFile ? (
+                                        <Avatar src={watchFile.preview} alt="preview" sx={{width: 140, height: 140}}/>
+                                    ) : (
+                                        <Avatar src={announcement?.photoUrl} alt={announcement?.announcementTitle} sx={{width: 140, height: 140}}/>
+                                    )}
+                                </Box>)}
                     </Grid>
                     <Grid item xs={12}>
                         <AppTextInput control={control} name='firstName' label='Imię' />

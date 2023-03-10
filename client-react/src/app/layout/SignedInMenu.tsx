@@ -31,7 +31,7 @@ export default function SignedInMenu() {
                 onClose={handleClose}
                 TransitionComponent={Fade}
             >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>Zarządzanie</MenuItem>
                 <MenuItem exact component={NavLink} to='/announcements/user'>Moje ogłoszenia</MenuItem>
                 <MenuItem onClick={() => dispatch(signOut())}>Wyloguj</MenuItem>
             </Menu>

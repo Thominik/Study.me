@@ -11,6 +11,7 @@ export interface Announcement {
     photoUrl: string;
     firstName: string;
     lastName: string;
+    optionalEmail?: string;
 }
 
 export interface AnnouncementParams {

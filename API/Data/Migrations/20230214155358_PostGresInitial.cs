@@ -28,7 +28,8 @@ namespace API.Data.Migrations
                     FirstName = table.Column<string>(type: "text", nullable: true),
                     LastName = table.Column<string>(type: "text", nullable: true),
                     PublicId = table.Column<string>(type: "text", nullable: true),
-                    AnnouncementOwner = table.Column<string>(type: "text", nullable: true)
+                    AnnouncementOwner = table.Column<string>(type: "text", nullable: true),
+                    OptionalEmail = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -185,8 +186,8 @@ namespace API.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "71c51615-793c-42f9-8892-d8f5969b5a7e", "585215b2-0396-40ac-8b02-2a971948aa58", "Member", "MEMBER" },
-                    { "f1ab4669-04fb-43f3-b766-82aedc3ab4c2", "a5d72db3-e914-4f3c-a29f-7eaf175b51dd", "Admin", "ADMIN" }
+                    { "93caea7e-d4d5-451e-9b90-9a174f02ab5c", "500833e3-3307-4f8b-ab5a-04c8d02282cb", "Member", "MEMBER" },
+                    { "ffee0b0a-2547-4bf3-831e-7fb03850d424", "ca264395-2459-4b4b-badb-8bb64a86f62f", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
